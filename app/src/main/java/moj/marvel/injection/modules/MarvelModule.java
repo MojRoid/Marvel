@@ -11,6 +11,8 @@ import moj.marvel.controllers.MarvelActivity;
 import moj.marvel.controllers.MarvelController;
 import moj.marvel.injection.qualifers.ForActivity;
 import moj.marvel.injection.scopes.PerActivity;
+import moj.marvel.network.marvel.MarvelNetworkManager;
+import moj.marvel.network.marvel.MarvelNetworkManagerImpl;
 import moj.marvel.ui.ComicAdapter;
 import moj.marvel.ui.MarvelView;
 import moj.marvel.ui.MarvelViewImpl;
@@ -55,11 +57,9 @@ public class MarvelModule {
         return new ComicAdapter(new ArrayList<>(), mActivity);
     }
 
-    /*
     @Provides
     @PerActivity
-    MarvelNetworkManager providesOperationsNetworkManager(MarvelNetworkManagerImpl operationsNetworkManager) {
+    MarvelNetworkManager providesMarvelNetworkManager(MarvelNetworkManagerImpl operationsNetworkManager) {
         return operationsNetworkManager;
     }
-    */
 }

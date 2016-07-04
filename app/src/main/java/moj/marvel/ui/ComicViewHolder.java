@@ -11,7 +11,7 @@ import moj.marvel.R;
 public class ComicViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.txt_comic_title)
-    TextView mTxtComicName;
+    TextView title;
 
     public ComicViewHolder(View v) {
         super(v);

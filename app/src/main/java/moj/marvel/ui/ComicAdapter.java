@@ -52,7 +52,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
 
     @Override
     public void onBindViewHolder(ComicViewHolder holder, int position) {
-        holder.mTxtComicName.setText(mDataset.get(position).getTitle());
+        holder.title.setText(mDataset.get(position).getTitle());
     }
 
     public void setListData(List<Comic> data) {
