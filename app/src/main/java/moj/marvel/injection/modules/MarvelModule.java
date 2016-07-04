@@ -1,7 +1,9 @@
 package moj.marvel.injection.modules;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 
@@ -47,8 +49,8 @@ public class MarvelModule {
 
     @Provides
     @PerActivity
-    LinearLayoutManager providesLinearLayoutManager(@ForActivity Context context) {
-        return new LinearLayoutManager(context);
+    StaggeredGridLayoutManager providesLayoutManager(@ForActivity Context context) {
+        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
     }
 
     @Provides

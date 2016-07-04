@@ -2,6 +2,7 @@ package moj.marvel.network.parsers;
 
 
 import android.util.Log;
+import android.widget.Switch;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -21,6 +22,10 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
     private static final String DATA = "data";
     private static final String RESULTS = "results";
     private static final String TITLE = "title";
+    private static final String DESCRIPTION = "description";
+    private static final String IMAGES = "images";
+    private static final String IMAGE_PATH = "path";
+    private static final String IMAGE_EXT = "extension";
 
     @Override
     public ComicsWrapper read(JsonReader in) throws IOException {
@@ -65,6 +70,11 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
         return comicsWrapper;
     }
 
+    @Override
+    public void write(JsonWriter out, ComicsWrapper value) throws IOException {
+
+    }
+
     private String readString(JsonReader in) throws IOException {
         if (in.peek() == JsonToken.NULL) {
             in.nextNull();
@@ -73,10 +83,6 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
         return in.nextString();
     }
 
-    @Override
-    public void write(JsonWriter out, ComicsWrapper value) throws IOException {
-
-    }
 
     public Comic getComic(JsonReader in) throws IOException {
         Comic comic = new Comic();
@@ -89,6 +95,33 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
                     comic.setTitle(readString(in));
                     break;
 
+                case DESCRIPTION:
+                    comic.setDescription(readString(in));
+                    break;
+
+                case IMAGES:
+                    in.beginArray();
+                    in.beginObject();
+                    while (in.hasNext()) {
+                        switch (in.nextName()) {
+                            case IMAGE_PATH:
+                                comic.setImageUrl(readString(in));
+                                break;
+                            case IMAGE_EXT:
+                                if (comic.getImageUrl() != null) {
+                                    comic.setImageUrl(comic.getImageUrl() + "." + readString(in));
+                                }
+                                break;
+                            default:
+                                in.skipValue();
+                                break;
+
+                        }
+                    }
+                    in.endObject();
+                    in.endArray();
+                    break;
+
                 default:
                     in.skipValue();
                     break;
@@ -96,6 +129,7 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
         }
 
         Log.d("Comic Title", comic.getTitle());
+        Log.d("Comic Image URL", comic.getImageUrl());
         in.endObject();
         return comic;
     }

@@ -6,6 +6,8 @@ import android.os.Parcelable;
 public class Comic implements Parcelable {
 
     String title;
+    String description;
+    String imageUrl;
 
     public Comic() {
     }
@@ -18,6 +20,21 @@ public class Comic implements Parcelable {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     protected Comic(Parcel in) {
         title = in.readString();

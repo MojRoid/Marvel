@@ -1,8 +1,7 @@
 package moj.marvel.ui;
 
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ViewSwitcher;
 
@@ -29,10 +28,10 @@ public class MarvelViewImpl implements MarvelView {
 
     private final MarvelController mController;
     private ComicAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
+    private StaggeredGridLayoutManager mLayoutManager;
 
     @Inject
-    public MarvelViewImpl(MarvelController controller, ComicAdapter adapter, LinearLayoutManager layoutManager) {
+    public MarvelViewImpl(MarvelController controller, ComicAdapter adapter, StaggeredGridLayoutManager layoutManager) {
         mController = controller;
         mAdapter = adapter;
         mLayoutManager = layoutManager;

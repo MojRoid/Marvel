@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -53,6 +55,15 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
     @Override
     public void onBindViewHolder(ComicViewHolder holder, int position) {
         holder.title.setText(mDataset.get(position).getTitle());
+
+        if (mDataset.get(position).getDescription() == null) {
+            holder.description.setVisibility(View.GONE);
+        } else {
+            holder.description.setVisibility(View.VISIBLE);
+        }
+
+        holder.description.setText(mDataset.get(position).getDescription());
+        Picasso.with(holder.image.getContext()).load(mDataset.get(position).getImageUrl()).into(holder.image);
     }
 
     public void setListData(List<Comic> data) {

@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/default_padding"
-    android:layout_marginRight="@dimen/default_padding"
+    android:layout_marginBottom="@dimen/half_default_padding"
+    android:layout_marginLeft="@dimen/half_default_padding"
+    android:layout_marginRight="@dimen/half_default_padding"
     android:layout_marginTop="@dimen/half_default_padding"
-    android:layout_marginBottom="@dimen/half_default_padding">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txt_comic_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/default_padding"
-        android:textIsSelectable="true"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:selectAllOnFocus="true"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_comic_image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_height"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/txt_comic_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/half_default_padding"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@android:color/black"
+            android:textAllCaps="true"/>
+
+        <TextView
+            android:id="@+id/txt_comic_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/half_default_padding"
+            android:paddingLeft="@dimen/half_default_padding"
+            android:paddingRight="@dimen/half_default_padding"
+            android:fontFamily="sans-serif-condensed"
+            android:maxLines="5"
+            android:ellipsize="end"/>
+
+    </LinearLayout>
+
 </android.support.v7.widget.CardView>
