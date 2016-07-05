@@ -1,6 +1,7 @@
 package moj.marvel.ui.marvel;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
@@ -22,6 +23,9 @@ public class MarvelViewImpl implements MarvelView {
 
     private static final int DISPLAY_PROGRESS = 0;
     private static final int DISPLAY_CONTENT = 1;
+
+    @BindView(R.id.comics_swipe_refresh)
+    SwipeRefreshLayout mSwipeRefresh;
 
     @BindView(R.id.comics_recycler_view)
     RecyclerView mRecyclerView;
@@ -47,6 +51,10 @@ public class MarvelViewImpl implements MarvelView {
     public void init(View view) {
         ButterKnife.bind(this, view);
         initRecyclerView();
+
+        mSwipeRefresh.setOnRefreshListener(() -> {
+            mController.requestComics();
+        });
     }
 
     @Override
@@ -66,6 +74,7 @@ public class MarvelViewImpl implements MarvelView {
 
     @Override
     public void showComicsList(List<Comic> list) {
+        mSwipeRefresh.setRefreshing(false);
         displayView(DISPLAY_CONTENT);
         mAdapter.setListData(list);
     }

@@ -7,14 +7,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.facebook.stetho.common.StringUtil;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import moj.marvel.MarvelApplication;
 import moj.marvel.R;
 import moj.marvel.controllers.detail.DetailActivity;
-import moj.marvel.injection.components.ApplicationComponent;
 import moj.marvel.injection.components.MarvelComponent;
 import moj.marvel.injection.modules.MarvelModule;
 import moj.marvel.model.Comic;
@@ -31,7 +30,11 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
     @Inject
     MarvelNetworkManager mNetworkManager;
 
+    @Inject
+    BudgetCalculator mBudgetCalculator;
+
     private MarvelComponent mComponent;
+    private List<Comic> mComicsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
         mView.init(findViewById(android.R.id.content));
 
         mNetworkManager.setListener(this);
+        mNetworkManager.requestComics();
     }
 
     @Override
@@ -59,23 +63,25 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (mComicsList == null)
+            requestComics();
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         mNetworkManager.cancel();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        requestComics();
-    }
-
     private void initComponent() {
         mComponent =
-        MarvelApplication
-                .getApp()
-                .getComponent()
-                .plus(new MarvelModule(this));
+                MarvelApplication
+                        .getApp()
+                        .getComponent()
+                        .plus(new MarvelModule(this));
 
         mComponent
                 .inject(this);
@@ -87,6 +93,7 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
 
     @Override
     public void onRequestCompleted(ComicsWrapper wrapper) {
+        mComicsList = wrapper.getComicsList();
         mView.showComicsList(wrapper.getComicsList());
     }
 
@@ -108,6 +115,6 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
     }
 
     public void onBudgetSet(double budget) {
-        Log.d("Budget: ", String.valueOf(budget));
+        mView.showComicsList(mBudgetCalculator.removeExpensiveComics(mComicsList, budget));
     }
 }

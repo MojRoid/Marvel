@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
+import moj.marvel.controllers.marvel.BudgetCalculator;
 import moj.marvel.controllers.marvel.MarvelActivity;
 import moj.marvel.controllers.marvel.MarvelController;
 import moj.marvel.injection.qualifers.ForActivity;
@@ -72,5 +73,11 @@ public class MarvelModule {
     @PerActivity
     BudgetDialogFragment providesBudgetDialogFragment() {
         return new BudgetDialogFragment();
+    }
+
+    @Provides
+    @PerActivity
+    BudgetCalculator providesBudgetCalculator() {
+        return new BudgetCalculator();
     }
 }
