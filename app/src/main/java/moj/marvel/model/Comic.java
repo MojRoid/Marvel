@@ -5,12 +5,27 @@ import android.os.Parcelable;
 
 public class Comic implements Parcelable {
 
-    String title;
-    String description;
-    String imageUrl;
+    private String title;
+    private String description;
+    private int pageCount;
+    private double price;
+    private String buyUrl;
+    private String imageUrl;
 
     public Comic() {
     }
+
+    public static final Creator<Comic> CREATOR = new Creator<Comic>() {
+        @Override
+        public Comic createFromParcel(Parcel in) {
+            return new Comic(in);
+        }
+
+        @Override
+        public Comic[] newArray(int size) {
+            return new Comic[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -28,6 +43,30 @@ public class Comic implements Parcelable {
         this.description = description;
     }
 
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getBuyUrl() {
+        return buyUrl;
+    }
+
+    public void setBuyUrl(String buyUrl) {
+        this.buyUrl = buyUrl;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -40,18 +79,6 @@ public class Comic implements Parcelable {
         title = in.readString();
     }
 
-    public static final Creator<Comic> CREATOR = new Creator<Comic>() {
-        @Override
-        public Comic createFromParcel(Parcel in) {
-            return new Comic(in);
-        }
-
-        @Override
-        public Comic[] newArray(int size) {
-            return new Comic[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
@@ -60,5 +87,10 @@ public class Comic implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeInt(pageCount);
+        parcel.writeDouble(price);
+        parcel.writeString(buyUrl);
+        parcel.writeString(imageUrl);
     }
 }

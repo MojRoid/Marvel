@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ComicsWrapper implements Parcelable {
 
-    List<Comic> comicsList;
+    private List<Comic> comicsList;
 
     public ComicsWrapper() {
     }

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import dagger.Component;
 import moj.marvel.injection.modules.ApplicationModule;
+import moj.marvel.injection.modules.DetailModule;
 import moj.marvel.injection.modules.MarvelModule;
 import moj.marvel.injection.modules.NetworkModule;
 import moj.marvel.injection.scopes.PerApplication;
@@ -15,4 +16,5 @@ public interface ApplicationComponent {
     void inject(Application application);
 
     MarvelComponent plus(MarvelModule module);
+    DetailComponent plus(DetailModule module);
 }

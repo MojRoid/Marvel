@@ -2,7 +2,6 @@ package moj.marvel.network.parsers;
 
 
 import android.util.Log;
-import android.widget.Switch;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -23,6 +22,11 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
     private static final String RESULTS = "results";
     private static final String TITLE = "title";
     private static final String DESCRIPTION = "description";
+    private static final String PAGE_COUNT = "pageCount";
+    private static final String PRICES = "prices";
+    private static final String PRICE = "price";
+    private static final String BUY_URLS = "urls";
+    private static final String BUY_URL = "url";
     private static final String IMAGES = "images";
     private static final String IMAGE_PATH = "path";
     private static final String IMAGE_EXT = "extension";
@@ -83,6 +87,22 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
         return in.nextString();
     }
 
+    private int readInt(JsonReader in) throws IOException {
+        if (in.peek() == JsonToken.NULL) {
+            in.nextNull();
+            return 0;
+        }
+        return in.nextInt();
+    }
+
+    private double readDouble(JsonReader in) throws IOException {
+        if (in.peek() == JsonToken.NULL) {
+            in.nextNull();
+            return 0;
+        }
+        return in.nextDouble();
+    }
+
 
     public Comic getComic(JsonReader in) throws IOException {
         Comic comic = new Comic();
@@ -99,9 +119,53 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
                     comic.setDescription(readString(in));
                     break;
 
+                case PAGE_COUNT:
+                    comic.setPageCount(readInt(in));
+                    break;
+
+                case PRICES:
+                    in.beginArray();
+                    while (in.hasNext()) {
+                        in.beginObject();
+                        while (in.hasNext()) {
+                            switch (in.nextName()) {
+                                case PRICE:
+                                    comic.setPrice(readDouble(in));
+                                    break;
+                                default:
+                                    in.skipValue();
+                                    break;
+
+                            }
+                        }
+                        in.endObject();
+                    }
+                    in.endArray();
+                    break;
+
+                case BUY_URLS:
+                    in.beginArray();
+                    while (in.hasNext()) {
+                        in.beginObject();
+                        while (in.hasNext()) {
+                            switch (in.nextName()) {
+                                case BUY_URL:
+                                    comic.setBuyUrl(readString(in));
+                                    break;
+                                default:
+                                    in.skipValue();
+                                    break;
+
+                            }
+                        }
+                        in.endObject();
+                    }
+                    in.endArray();
+                    break;
+
                 case IMAGES:
                     in.beginArray();
-                    while(in.hasNext()) {
+                    while (in.hasNext()) {
                         in.beginObject();
                         while (in.hasNext()) {
                             switch (in.nextName()) {
@@ -128,6 +192,9 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
         }
 
         //Log.d("Comic Title", comic.getTitle());
+        //Log.d("Comic Page Count", String.valueOf(comic.getPageCount()));
+        //Log.d("Comic Price", String.valueOf(comic.getPrice()));
+        //Log.d("Comic Buy Url", comic.getBuyUrl());
         in.endObject();
         return comic;
     }

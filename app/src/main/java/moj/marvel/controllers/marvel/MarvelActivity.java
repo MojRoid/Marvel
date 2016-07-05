@@ -1,5 +1,6 @@
 package moj.marvel.controllers.marvel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,7 +9,9 @@ import javax.inject.Inject;
 
 import moj.marvel.MarvelApplication;
 import moj.marvel.R;
+import moj.marvel.controllers.detail.DetailActivity;
 import moj.marvel.injection.modules.MarvelModule;
+import moj.marvel.model.Comic;
 import moj.marvel.model.ComicsWrapper;
 import moj.marvel.network.marvel.MarvelNetworkManager;
 import moj.marvel.network.marvel.MarvelNetworkManagerListener;
@@ -28,11 +31,10 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
         setContentView(R.layout.activity_marvel);
 
         initComponent();
-
         mView.init(findViewById(android.R.id.content));
+
         mNetworkManager.setListener(this);
-        mNetworkManager.requestComics();
-        //mView.showComicsList(createDummyComicList());
+        requestComics();
     }
 
     @Override
@@ -49,19 +51,6 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
                 .inject(this);
     }
 
-    /*
-    private List<Comic> createDummyComicList() {
-        List<Comic> list = new ArrayList<>();
-
-        for (int i = 1; i <= 100; i++) {
-            Comic comic = new Comic();
-            comic.setTitle("Object " + i);
-            list.add(comic);
-        }
-        return list;
-    }
-    */
-
     @Override
     public void onRequestCompleted(ComicsWrapper wrapper) {
         mView.showComicsList(wrapper.getComicsList());
@@ -70,5 +59,17 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
     @Override
     public void onRequestFailed(Throwable t) {
         Log.e(getClass().getName(), "Error requesting comics", t);
+    }
+
+    @Override
+    public void requestComics() {
+        mNetworkManager.requestComics();
+    }
+
+    @Override
+    public void openDetail(Comic comic) {
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra("comic",comic);
+        startActivity(intent);
     }
 }
