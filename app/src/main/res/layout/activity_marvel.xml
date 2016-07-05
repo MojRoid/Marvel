@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
     android:orientation="vertical"
-    tools:context="moj.marvel.controllers.MarvelActivity">
+    tools:context="moj.marvel.controllers.marvel.MarvelActivity">
 
     <ViewSwitcher
         android:id="@+id/comics_view_switcher"

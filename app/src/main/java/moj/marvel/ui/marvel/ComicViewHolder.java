@@ -1,4 +1,4 @@
-package moj.marvel.ui;
+package moj.marvel.ui.marvel;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

@@ -1,4 +1,4 @@
-package moj.marvel.ui;
+package moj.marvel.ui.marvel;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import moj.marvel.R;
-import moj.marvel.controllers.MarvelController;
+import moj.marvel.controllers.marvel.MarvelController;
 import moj.marvel.model.Comic;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
@@ -60,10 +60,16 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicViewHolder> {
             holder.description.setVisibility(View.GONE);
         } else {
             holder.description.setVisibility(View.VISIBLE);
+            holder.description.setText(mDataset.get(position).getDescription());
         }
 
-        holder.description.setText(mDataset.get(position).getDescription());
-        Picasso.with(holder.image.getContext()).load(mDataset.get(position).getImageUrl()).into(holder.image);
+        if (mDataset.get(position).getImageUrl() == null) {
+            holder.image.setVisibility(View.GONE);
+        } else {
+            holder.image.setVisibility(View.VISIBLE);
+            Picasso.with(holder.image.getContext()).load(mDataset.get(position).getImageUrl()).into(holder.image);
+        }
+
     }
 
     public void setListData(List<Comic> data) {

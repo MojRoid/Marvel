@@ -1,23 +1,21 @@
 package moj.marvel.injection.modules;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 
 import dagger.Module;
 import dagger.Provides;
-import moj.marvel.controllers.MarvelActivity;
-import moj.marvel.controllers.MarvelController;
+import moj.marvel.controllers.marvel.MarvelActivity;
+import moj.marvel.controllers.marvel.MarvelController;
 import moj.marvel.injection.qualifers.ForActivity;
 import moj.marvel.injection.scopes.PerActivity;
 import moj.marvel.network.marvel.MarvelNetworkManager;
 import moj.marvel.network.marvel.MarvelNetworkManagerImpl;
-import moj.marvel.ui.ComicAdapter;
-import moj.marvel.ui.MarvelView;
-import moj.marvel.ui.MarvelViewImpl;
+import moj.marvel.ui.marvel.ComicAdapter;
+import moj.marvel.ui.marvel.MarvelView;
+import moj.marvel.ui.marvel.MarvelViewImpl;
 
 @Module
 public class MarvelModule {

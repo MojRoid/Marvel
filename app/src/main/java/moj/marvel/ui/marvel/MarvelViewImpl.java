@@ -1,4 +1,4 @@
-package moj.marvel.ui;
+package moj.marvel.ui.marvel;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,7 +12,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import moj.marvel.R;
-import moj.marvel.controllers.MarvelController;
+import moj.marvel.controllers.marvel.MarvelController;
 import moj.marvel.model.Comic;
 
 public class MarvelViewImpl implements MarvelView {

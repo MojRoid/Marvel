@@ -20,6 +20,7 @@ public class NetworkHelperImpl implements NetworkHelper {
     private static final long TIME_STAMP = 1; //TODO: generate a timestamp
     private static final String PRIVATE_KEY = "5de1fabcda2ea08912bd8b09bca4321f50563655";
     private static final String PUBLIC_KEY = "54306733de0f5cd1418aa05a85fa062a";
+    private static final int LIMIT = 100;
 
     @Inject
     public NetworkHelperImpl(Retrofit marvelApi) {
@@ -50,6 +51,7 @@ public class NetworkHelperImpl implements NetworkHelper {
         return mMarvelService.getComics(
                 TIME_STAMP,
                 PUBLIC_KEY,
-                calculateMd5(TIME_STAMP + PRIVATE_KEY + PUBLIC_KEY));
+                calculateMd5(TIME_STAMP + PRIVATE_KEY + PUBLIC_KEY),
+                100);
     }
 }

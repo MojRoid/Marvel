@@ -1,13 +1,8 @@
 package moj.marvel.network.marvel;
 
 
-import android.util.Log;
-
-import java.util.concurrent.Callable;
-
 import javax.inject.Inject;
 
-import moj.marvel.controllers.MarvelController;
 import moj.marvel.model.ComicsWrapper;
 import moj.marvel.network.NetworkHelper;
 import retrofit2.Response;

@@ -101,24 +101,23 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
 
                 case IMAGES:
                     in.beginArray();
-                    in.beginObject();
-                    while (in.hasNext()) {
-                        switch (in.nextName()) {
-                            case IMAGE_PATH:
-                                comic.setImageUrl(readString(in));
-                                break;
-                            case IMAGE_EXT:
-                                if (comic.getImageUrl() != null) {
+                    while(in.hasNext()) {
+                        in.beginObject();
+                        while (in.hasNext()) {
+                            switch (in.nextName()) {
+                                case IMAGE_PATH:
+                                    comic.setImageUrl(readString(in));
+                                    break;
+                                case IMAGE_EXT:
                                     comic.setImageUrl(comic.getImageUrl() + "." + readString(in));
-                                }
-                                break;
-                            default:
-                                in.skipValue();
-                                break;
-
+                                    break;
+                                default:
+                                    in.skipValue();
+                                    break;
+                            }
                         }
+                        in.endObject();
                     }
-                    in.endObject();
                     in.endArray();
                     break;
 
@@ -128,8 +127,7 @@ public class ComicsTypeAdapter extends TypeAdapter<ComicsWrapper> {
             }
         }
 
-        Log.d("Comic Title", comic.getTitle());
-        Log.d("Comic Image URL", comic.getImageUrl());
+        //Log.d("Comic Title", comic.getTitle());
         in.endObject();
         return comic;
     }

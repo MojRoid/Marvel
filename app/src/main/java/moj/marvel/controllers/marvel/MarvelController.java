@@ -1,4 +1,4 @@
-package moj.marvel.controllers;
+package moj.marvel.controllers.marvel;
 
 public interface MarvelController {
 }

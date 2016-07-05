@@ -1,22 +1,18 @@
-package moj.marvel.controllers;
+package moj.marvel.controllers.marvel;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
 import moj.marvel.MarvelApplication;
 import moj.marvel.R;
 import moj.marvel.injection.modules.MarvelModule;
-import moj.marvel.model.Comic;
 import moj.marvel.model.ComicsWrapper;
 import moj.marvel.network.marvel.MarvelNetworkManager;
 import moj.marvel.network.marvel.MarvelNetworkManagerListener;
-import moj.marvel.ui.MarvelView;
+import moj.marvel.ui.marvel.MarvelView;
 
 public class MarvelActivity extends AppCompatActivity implements MarvelController, MarvelNetworkManagerListener {
 
