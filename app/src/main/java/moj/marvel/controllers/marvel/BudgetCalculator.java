@@ -1,8 +1,6 @@
 package moj.marvel.controllers.marvel;
 
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +14,7 @@ public class BudgetCalculator {
 
         calculcate(comics, budget, optimal, current, 0);
 
-
         return optimal.comics;
-
     }
 
 
@@ -32,7 +28,6 @@ public class BudgetCalculator {
             checkBestSolution(optimal, current);
             return;
         }
-
 
         if (comics.get(index).getPrice() <= budget) {
             current.addComic(comics.get(index));
@@ -49,7 +44,7 @@ public class BudgetCalculator {
         if (optimal.pages < current.pages && optimal.comicsCount < current.comicsCount) {
             optimal.comicsCount = current.comicsCount;
             optimal.pages = current.pages;
-            List<Comic> comicOptimal =  new ArrayList<>();
+            List<Comic> comicOptimal = new ArrayList<>();
             comicOptimal.addAll(current.comics);
             optimal.comics = comicOptimal;
         }
@@ -58,7 +53,7 @@ public class BudgetCalculator {
     public static class Sol {
         int pages;
         int comicsCount;
-        List<Comic> comics;
+        List<Comic> comics = new ArrayList<>();
 
         public void addComic(Comic comic) {
             pages += comic.getPageCount();
@@ -71,17 +66,5 @@ public class BudgetCalculator {
             comicsCount--;
             comics.remove(comic);
         }
-
     }
 }
-
-
-//        Log.d(getClass().getName(), "Number of comics started: " + comics.size());
-//
-//        for(int i = comics.size() - 1; i >= 0; i--) {
-//            if(comics.get(i).getPrice() > budget){
-//                comics.remove(i);
-//            }
-//        }
-//
-//        Log.d(getClass().getName(), "Number of comics left: " + comics.size());
