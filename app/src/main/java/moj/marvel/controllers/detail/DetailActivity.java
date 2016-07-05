@@ -9,6 +9,7 @@ import moj.marvel.MarvelApplication;
 import moj.marvel.R;
 import moj.marvel.injection.modules.DetailModule;
 import moj.marvel.ui.detail.DetailView;
+import moj.marvel.ui.marvel.BudgetSetListener;
 
 
 public class DetailActivity extends AppCompatActivity implements DetailController {

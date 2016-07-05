@@ -2,6 +2,7 @@ package moj.marvel.injection.components;
 
 import dagger.Subcomponent;
 import moj.marvel.controllers.marvel.MarvelActivity;
+import moj.marvel.injection.modules.BudgetModule;
 import moj.marvel.injection.modules.MarvelModule;
 import moj.marvel.injection.scopes.PerActivity;
 
@@ -10,4 +11,6 @@ import moj.marvel.injection.scopes.PerActivity;
 public interface MarvelComponent {
 
     void inject(MarvelActivity activity);
+
+    BudgetComponent plus (BudgetModule module);
 }

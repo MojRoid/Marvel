@@ -1,7 +1,10 @@
 package moj.marvel.injection.modules;
 
 import android.content.Context;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -11,8 +14,10 @@ import moj.marvel.controllers.marvel.MarvelActivity;
 import moj.marvel.controllers.marvel.MarvelController;
 import moj.marvel.injection.qualifers.ForActivity;
 import moj.marvel.injection.scopes.PerActivity;
+import moj.marvel.injection.scopes.PerFragment;
 import moj.marvel.network.marvel.MarvelNetworkManager;
 import moj.marvel.network.marvel.MarvelNetworkManagerImpl;
+import moj.marvel.ui.marvel.BudgetDialogFragment;
 import moj.marvel.ui.marvel.ComicAdapter;
 import moj.marvel.ui.marvel.MarvelView;
 import moj.marvel.ui.marvel.MarvelViewImpl;
@@ -61,5 +66,11 @@ public class MarvelModule {
     @PerActivity
     MarvelNetworkManager providesMarvelNetworkManager(MarvelNetworkManagerImpl operationsNetworkManager) {
         return operationsNetworkManager;
+    }
+
+    @Provides
+    @PerActivity
+    BudgetDialogFragment providesBudgetDialogFragment() {
+        return new BudgetDialogFragment();
     }
 }

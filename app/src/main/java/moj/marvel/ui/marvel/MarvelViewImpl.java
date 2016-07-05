@@ -1,7 +1,10 @@
 package moj.marvel.ui.marvel;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ViewSwitcher;
 
@@ -29,18 +32,31 @@ public class MarvelViewImpl implements MarvelView {
     private final MarvelController mController;
     private ComicAdapter mAdapter;
     private StaggeredGridLayoutManager mLayoutManager;
+    private BudgetDialogFragment mDialogFragment;
 
     @Inject
-    public MarvelViewImpl(MarvelController controller, ComicAdapter adapter, StaggeredGridLayoutManager layoutManager) {
+    public MarvelViewImpl(MarvelController controller, ComicAdapter adapter, StaggeredGridLayoutManager layoutManager,
+                          BudgetDialogFragment dialogFragment) {
         mController = controller;
         mAdapter = adapter;
         mLayoutManager = layoutManager;
+        mDialogFragment = dialogFragment;
     }
 
     @Override
     public void init(View view) {
         ButterKnife.bind(this, view);
         initRecyclerView();
+    }
+
+    @Override
+    public void createMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_marvel, menu);
+    }
+
+    @Override
+    public void showBudgetAlert(FragmentManager supportFragmentManager) {
+        mDialogFragment.show(supportFragmentManager, "");
     }
 
     private void initRecyclerView() {
