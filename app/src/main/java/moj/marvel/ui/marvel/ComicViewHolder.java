@@ -35,7 +35,7 @@ public class ComicViewHolder extends RecyclerView.ViewHolder {
         title.setText(comic.getTitle());
 
         if (comic.getDescription() == null) {
-            description.setText(itemView.getResources().getString(R.string.no_description));
+            description.setText(R.string.no_description);
         } else {
             description.setText(comic.getDescription());
         }

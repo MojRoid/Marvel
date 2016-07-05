@@ -4,14 +4,15 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
+    android:background="@color/colorPrimaryDark"
     android:orientation="vertical"
     tools:context="moj.marvel.controllers.marvel.MarvelActivity">
 
     <ViewSwitcher
         android:id="@+id/comics_view_switcher"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
         <ProgressBar
             android:id="@+id/comics_progress"

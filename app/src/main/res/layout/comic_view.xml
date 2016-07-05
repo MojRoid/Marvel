@@ -36,7 +36,7 @@
             android:paddingLeft="@dimen/half_default_padding"
             android:paddingRight="@dimen/half_default_padding"
             android:fontFamily="sans-serif-condensed"
-            android:maxLines="5"
+            android:maxLines="2"
             android:ellipsize="end"/>
 
     </LinearLayout>

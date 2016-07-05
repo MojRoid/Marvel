@@ -8,4 +8,6 @@
     <dimen name="half_default_padding">8dp</dimen>
 
     <dimen name="image_height">200dp</dimen>
+
+    <dimen name="textview_height">48dp</dimen>
 </resources>

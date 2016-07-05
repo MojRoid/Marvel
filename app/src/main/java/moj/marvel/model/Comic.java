@@ -77,6 +77,11 @@ public class Comic implements Parcelable {
 
     protected Comic(Parcel in) {
         title = in.readString();
+        description = in.readString();
+        pageCount = in.readInt();
+        price = in.readDouble();
+        buyUrl = in.readString();
+        imageUrl = in.readString();
     }
 
     @Override

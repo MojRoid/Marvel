@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.stetho.common.StringUtil;
+
 import javax.inject.Inject;
 
 import moj.marvel.MarvelApplication;
@@ -40,7 +42,6 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
         mView.init(findViewById(android.R.id.content));
 
         mNetworkManager.setListener(this);
-        requestComics();
     }
 
     @Override
@@ -61,6 +62,12 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
     protected void onPause() {
         super.onPause();
         mNetworkManager.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        requestComics();
     }
 
     private void initComponent() {
@@ -98,5 +105,9 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
         Intent intent = new Intent(this, DetailActivity.class);
         intent.putExtra("comic", comic);
         startActivity(intent);
+    }
+
+    public void onBudgetSet(double budget) {
+        Log.d("Budget: ", String.valueOf(budget));
     }
 }

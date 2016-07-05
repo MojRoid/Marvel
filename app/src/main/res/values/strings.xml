@@ -2,5 +2,6 @@
     <string name="app_name">MARVEL</string>
 
     <string name="no_description">No description available.</string>
-    <string name="menu_budget">Set budget</string>
+    <string name="menu_budget">What is your budget?</string>
+    <string name="menu_buy_comic">BUY COMIC</string>
 </resources>
