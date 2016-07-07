@@ -1,6 +1,8 @@
 package moj.marvel.controllers.marvel;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,35 +10,37 @@ import moj.marvel.model.Comic;
 
 public class BudgetCalculator {
 
-    public List<Comic> removeExpensiveComics(List<Comic> comics, double budget) {
+    public List<Comic> calculateBudget(List<Comic> comics, double budget) {
         Sol optimal = new Sol();
         Sol current = new Sol();
 
-        calculcate(comics, budget, optimal, current, 0);
+        calculate(comics, budget, optimal, current, 0);
 
         return optimal.comics;
     }
 
 
-    private void calculcate(List<Comic> comics, double budget, Sol optimal, Sol current, int index) {
-        if (budget == 0) {
+    private void calculate(List<Comic> comics, double budget, Sol optimal, Sol current, int index) {
+        if (budget < 0) {
             checkBestSolution(optimal, current);
+            //Log.d("Comic problem", "calculate: no budget");
             return;
         }
 
         if (index == comics.size()) {
             checkBestSolution(optimal, current);
+            //Log.d("Comic problem", "calculate: final comic");
             return;
         }
 
         if (comics.get(index).getPrice() <= budget) {
             current.addComic(comics.get(index));
             double remainingBudget = budget - comics.get(index).getPrice();
-            calculcate(comics, remainingBudget, optimal, current, index + 1);
+            calculate(comics, remainingBudget, optimal, current, index + 1);
             current.removeComic(comics.get(index));
-            calculcate(comics, budget, optimal, current, index + 1);
+            //TODO: calculate(comics, budget, optimal, current, index + 1); // Problematic call
         } else {
-            calculcate(comics, budget, optimal, current, index + 1);
+            calculate(comics, budget, optimal, current, index + 1);
         }
     }
 
@@ -47,6 +51,9 @@ public class BudgetCalculator {
             List<Comic> comicOptimal = new ArrayList<>();
             comicOptimal.addAll(current.comics);
             optimal.comics = comicOptimal;
+
+            Log.i("Number of comics: ", String.valueOf(optimal.comicsCount));
+            Log.i("Number of pages : ", String.valueOf(optimal.pages));
         }
     }
 

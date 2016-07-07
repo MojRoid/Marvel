@@ -115,6 +115,6 @@ public class MarvelActivity extends AppCompatActivity implements MarvelControlle
     }
 
     public void onBudgetSet(double budget) {
-        mView.showComicsList(mBudgetCalculator.removeExpensiveComics(mComicsList, budget));
+        mView.showComicsList(mBudgetCalculator.calculateBudget(mComicsList, budget));
     }
 }
