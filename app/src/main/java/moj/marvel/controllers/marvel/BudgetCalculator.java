@@ -4,6 +4,7 @@ package moj.marvel.controllers.marvel;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import moj.marvel.model.Comic;
@@ -11,25 +12,28 @@ import moj.marvel.model.Comic;
 public class BudgetCalculator {
 
     public List<Comic> calculateBudget(List<Comic> comics, double budget) {
+
         Sol optimal = new Sol();
         Sol current = new Sol();
 
-        calculate(comics, budget, optimal, current, 0);
+        calculate(sortCheapestToMostExpensive(comics), budget, optimal, current, 0);
 
         return optimal.comics;
     }
 
+    private List<Comic> sortCheapestToMostExpensive(List<Comic> list) {
+        Collections.sort(list, (comic, t1) -> comic.compareTo(t1));
+        return list;
+    }
 
     private void calculate(List<Comic> comics, double budget, Sol optimal, Sol current, int index) {
         if (budget < 0) {
             checkBestSolution(optimal, current);
-            //Log.d("Comic problem", "calculate: no budget");
             return;
         }
 
         if (index == comics.size()) {
             checkBestSolution(optimal, current);
-            //Log.d("Comic problem", "calculate: final comic");
             return;
         }
 
@@ -38,7 +42,7 @@ public class BudgetCalculator {
             double remainingBudget = budget - comics.get(index).getPrice();
             calculate(comics, remainingBudget, optimal, current, index + 1);
             current.removeComic(comics.get(index));
-            //TODO: calculate(comics, budget, optimal, current, index + 1); // Problematic call
+            // TODO: calculate(comics, budget, optimal, current, index + 1); // Problematic call
         } else {
             calculate(comics, budget, optimal, current, index + 1);
         }
@@ -52,8 +56,13 @@ public class BudgetCalculator {
             comicOptimal.addAll(current.comics);
             optimal.comics = comicOptimal;
 
+            double totalPrice = 0;
+            for (int p = 0; p < optimal.comics.size(); p++) {
+                totalPrice += optimal.comics.get(p).getPrice();
+            }
             Log.i("Number of comics: ", String.valueOf(optimal.comicsCount));
             Log.i("Number of pages : ", String.valueOf(optimal.pages));
+            Log.i("Total price     : ", String.valueOf(totalPrice));
         }
     }
 

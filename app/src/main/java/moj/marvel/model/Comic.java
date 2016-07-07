@@ -3,7 +3,7 @@ package moj.marvel.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Comic implements Parcelable {
+public class Comic implements Parcelable, Comparable<Comic> {
 
     private String title;
     private String description;
@@ -97,5 +97,14 @@ public class Comic implements Parcelable {
         parcel.writeDouble(price);
         parcel.writeString(buyUrl);
         parcel.writeString(imageUrl);
+    }
+
+    @Override
+    public int compareTo(Comic comic) {
+        if (this.getPrice() < comic.getPrice()) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }
