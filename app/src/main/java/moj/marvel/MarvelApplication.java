@@ -6,7 +6,8 @@ import moj.marvel.injection.components.ApplicationComponent;
 import moj.marvel.injection.components.DaggerApplicationComponent;
 import moj.marvel.injection.modules.ApplicationModule;
 
-public class MarvelApplication extends Application {
+public class
+MarvelApplication extends Application {
 
     private static MarvelApplication sApp;
 
